@@ -14,20 +14,26 @@ public class Shapes
     }
     public static void main(String[] args)
     {
+        enginePart();
+    }
+    static void enginePart()
+    {
         JFrame application= new JFrame();
-        application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        application.setSize(500, 500);
         btnConstructor makeBtn = new btnConstructor();
         makeShapes panel = new makeShapes(0,0,0,0,0,0);
-        int[] memorizeItArr[][] = new int[100][25][10];
-        //3차원 배열을 선언하여 저장. 1번째 칸에는 k번째 도형, 2번째 칸에는 k번째 도형의 위치,크기 정보, 3번째 칸에는 k번째 도형의 색깔정보를 담습니다.
         randomNumMemorize memorizeIt = new randomNumMemorize();
-        int choiceCnt=0, makeItCnt;
         Random getRandomNum = new Random();
+        int[] thirdChoice = new int[2], colorField = new int[100];
+        int memorizeItArr[][][] = new int[100][25][10];
+        //3차원 배열을 선언하여 저장. 1번째 칸에는 도형의 코드, 2번째 칸에는 k번째 도형의 각각 갯수, 3번째 칸에는 k번째 도형의 정보를 담습니다.
+        int choiceCnt=0, makeItCnt, thirdChoiceOfK, thirdChoiceOfColor;
+        int applicationWidth=500, applicationHeigt=500;
+        application.setSize(applicationWidth, applicationHeigt);
+        application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         while(true)
         {
             int first_choice = makeBtn.optionBtn();
-            //입력하기, 색깔바꾸기, 종료하기중 하나 선택
+            //입력하기, 색깔바꾸기, 종료하기 중 하나 선택
             if(first_choice==0)
             {//입력하기 선택
                 int secondChoice = makeBtn.drawSelected();//사용자 도형 설정
@@ -38,70 +44,57 @@ public class Shapes
                 }
                 choiceCnt+=1;
                 //k번째 도형 == choiceCnt
-
-                for(int i=0;i<choiceCnt;i++)
-                {//새로 입력된 도형을 그립니다.
-                    panel = new makeShapes(-1,0,0,0,0,-1);
-                    for(int j=0; j<makeItCnt; j++)
-                    {
-                        panel = new makeShapes(memorizeItArr[i][j][0], memorizeItArr[i][j][1], memorizeItArr[i][j][2], memorizeItArr[i][j][3], memorizeItArr[i][j][4], 5);
-                        panel.setOpaque(false);//투명화. 배경을 없애 도형을 겹칠 수 있다.
-                        application.add(panel);
-                        application.setVisible(true);
-                    }
-                }
-                application.repaint();
                 continue;
             }
             else if(first_choice==1)
             {//k번째 도형 색깔 바꾸기 선택
-                int thirdChoice[] = makeBtn.changeColorSelected();//k 선택부
-                int thirdChoiceOfK, thirdChoiceOfColor;
+                thirdChoice = makeBtn.changeColorSelected();//k 선택부
                 thirdChoiceOfK = thirdChoice[0] - 1;//콤퓨타는 0부터 세니까 여기서 1 빼줍니다.
                 thirdChoiceOfColor = thirdChoice[1];
                 if(thirdChoiceOfK == -1 || thirdChoiceOfColor==-1) continue;
-                panel = new makeShapes(-1,0,0,0,0,-1);
-                for(int i=0;i<choiceCnt;i++)
-                {
-                    for(int j=0; j<20; j++)
+                //for(int i=0; i<20; i++) memorizeItArr[thirdChoiceOfK][i][5] = thirdChoiceOfColor;
+                colorField[thirdChoiceOfK] = thirdChoiceOfColor;
+                continue;
+            }
+            else
+            {//추가동작 선택
+                /*JFrame application= new JFrame();
+                application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                application.setSize(500,500);*/
+                int fourthChoice = makeBtn.additionalActionSelected();
+                if(fourthChoice==0)
+                {//도형 숨기기
+                    hide(panel, application, applicationWidth, applicationHeigt);
+                    continue;
+                }
+                else if(fourthChoice==1)
+                {//도형 보이기
+                    for(int i=0;i<choiceCnt;i++)
                     {
-                        if(i==thirdChoiceOfK)
+                        System.out.printf("색깔: %d\n", colorField[i]);
+                        for(int j=0; j<20; j++)
                         {
-                            panel = new makeShapes(memorizeItArr[i][j][0], memorizeItArr[i][j][1], memorizeItArr[i][j][2], memorizeItArr[i][j][3], memorizeItArr[i][j][4], thirdChoiceOfColor);
-                            panel.setOpaque(false);//투명화
-                            application.add(panel);
-                            application.setVisible(true);
-                        }
-                        else {
-                            panel = new makeShapes(memorizeItArr[i][j][0], memorizeItArr[i][j][1], memorizeItArr[i][j][2], memorizeItArr[i][j][3], memorizeItArr[i][j][4], 5);
+                            panel = new makeShapes(memorizeItArr[i][j][0], memorizeItArr[i][j][1], memorizeItArr[i][j][2], memorizeItArr[i][j][3], memorizeItArr[i][j][4], colorField[i]);
                             panel.setOpaque(false);//투명화
                             application.add(panel);
                             application.setVisible(true);
                         }
                     }
                 }
-                continue;
-            }
-            else
-            {//추가동작 선택
-                int fourthChoice = makeBtn.additionalActionSelected();
-                if(fourthChoice==0)
-                {
-                    System.out.println("도형 숨기기");
-                }
-                else if(fourthChoice==1)
-                {
-                    System.out.println("도형 보이기");
-                }
                 else
-                {
+                {//종료
                     System.exit(0);
                 }
             }
         }
     }
+    static void hide(makeShapes panel, JFrame application, int width, int height)
+    {
+        panel = new makeShapes(100,0,0,width,height,100);
+        application.add(panel);
+        application.setVisible(true);
+    }
 }
-
 class makeShapes extends JPanel
 {
     private int choice, x, y, size1, size2;
@@ -118,11 +111,12 @@ class makeShapes extends JPanel
 
     public void paintComponent(Graphics g)
     {
-        super.paintComponent(g);
+        //super.paintComponent(g);
         switch(color)
         {
-            case -1:
+            case 100:
                 g.setColor(Color.WHITE);
+                break;
             case 1:
                 g.setColor(Color.red);
                 break;
@@ -135,13 +129,13 @@ class makeShapes extends JPanel
             case 4:
                 g.setColor(Color.yellow);
                 break;
-            case 5:
+            case 5: case 0:
                 g.setColor(Color.BLACK);
                 break;
         }
         switch (choice)
         {
-            case -1:
+            case 100:
                 g.fillRect(0,0,500,500);
                 break;
             case 0:
@@ -156,25 +150,23 @@ class makeShapes extends JPanel
         }
     }
 }
-
 class randomNumMemorize
 {
     Random getRandom = new Random();
     private int choice, x, y, size1, size2, cnt;
-    private int blackOrRed=1;//1이면 검정, 0이면 빨강으로
-    public int[] randomNumMemorize(int choice, int color)
+    private int color=1;
+    public int[] randomNumMemorize(int usrchoice, int usrcolor)
     {
-        this.choice = choice;
+        this.choice = usrchoice;
         this.x = getRandom.nextInt(400);
         this.y = getRandom.nextInt(400);
         this.size1 = getRandom.nextInt(100)+1;
         this.size2 = getRandom.nextInt(100)+1;
-        this.blackOrRed = color;
-        int[] retArr = {choice, x, y, size1, size2, blackOrRed};
+        this.color = usrcolor;
+        int[] retArr = {choice, x, y, size1, size2, color};
         return retArr;
     }
 }
-
 class btnConstructor
 {
     public int optionBtn()
