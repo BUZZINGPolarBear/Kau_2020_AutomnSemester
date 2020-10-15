@@ -104,6 +104,70 @@ public class Shapes
     }
 }
 
+class Rect extends makeShapes
+{
+    private int loc_x;
+    private int loc_y;
+    private int size_x;
+    private int size_y;
+    private int color;
+    public Rect(int[][][] arr, int i, int j) {
+        super(arr);
+        loc_x = arr[i][j][1];
+        loc_y = arr[i][j][2];
+        size_x = arr[i][j][3];
+        size_y = arr[i][j][4];
+        color = arr[i][j][5];
+    }
+
+    public void paintComponent(Graphics g)
+    {
+        System.out.printf("x: %d y: %d sizeX: %d sizeY: %d\n",loc_x,loc_y,size_x,size_y);
+    }
+}
+class Circle extends makeShapes
+{
+    private int loc_x;
+    private int loc_y;
+    private int size_x;
+    private int size_y;
+    private int color;
+    public Circle(int[][][] arr, int i, int j) {
+        super(arr);
+        loc_x = arr[i][j][1];
+        loc_y = arr[i][j][2];
+        size_x = arr[i][j][3];
+        size_y = arr[i][j][4];
+        color = arr[i][j][5];
+    }
+    public void paintComponent(Graphics g)
+    {
+        System.out.printf("x: %d y: %d sizeX: %d sizeY: %d\n",loc_x,loc_y,size_x,size_y);
+    }
+}
+class Line extends makeShapes
+{
+    private int loc_x;
+    private int loc_y;
+    private int size_x;
+    private int size_y;
+    private int color;
+    public Line(int[][][] arr, int i, int j) {
+        super(arr);
+        loc_x = arr[i][j][1];
+        loc_y = arr[i][j][2];
+        size_x = arr[i][j][3];
+        size_y = arr[i][j][4];
+        color = arr[i][j][5];
+    }
+
+    public void paintComponent(Graphics g)
+    {
+        System.out.printf("x: %d y: %d sizeX: %d sizeY: %d\n",loc_x,loc_y,size_x,size_y);
+    }
+}
+
+
 class makeShapes extends JPanel
 {
     private int usrArr[][][];
@@ -155,10 +219,8 @@ class makeShapes extends JPanel
                         break;
                     case 0:
                         g.drawOval(usrArr[i][j][1], usrArr[i][j][2], usrArr[i][j][3], usrArr[i][j][4]);
-                        break;
                     case 1:
                         g.drawRect(usrArr[i][j][1], usrArr[i][j][2], usrArr[i][j][3], usrArr[i][j][4]);
-                        break;
                     case 2:
                         g.drawLine(usrArr[i][j][1], usrArr[i][j][2], usrArr[i][j][1]+usrArr[i][j][3], usrArr[i][j][2]+usrArr[i][j][4]);
                         break;
