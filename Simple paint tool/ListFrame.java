@@ -16,13 +16,14 @@ class ListFrame extends JFrame{
     {
         super ("Choose Color");
         setLayout(new FlowLayout());
+        Paint mainPaint = new Paint();
 
         colorJList = new JList(colorNames);
         colorJList.setVisibleRowCount(6);
 
         colorJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        add(new JScrollPane(colorJList));
+        mainPaint.listPanel.add(new JScrollPane(colorJList));
         colorJList.addListSelectionListener(
                 new ListSelectionListener() {
                     @Override

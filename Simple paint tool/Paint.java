@@ -2,17 +2,25 @@ import java.awt.*;
 import javax.swing.*;
 
 public class Paint {
+    static JFrame application = new JFrame("Simple Paintbrush");
+    static JPanel radioBtnPanel = new JPanel();
+    static JPanel listPanel = new JPanel();
     public static void main(String[] args)
     {
-        JFrame application = new JFrame("Simple Paintbrush");
-        JPanel list = new JPanel();
-
+        SimpleDrawingTool();
+    }
+    public static void SimpleDrawingTool()
+    {
         ListFrame listFrame = new ListFrame();
-        PaintPanel paintPanel = new PaintPanel();
         RadioButtonFrame radioButtonFrame = new RadioButtonFrame();
-        application.add(paintPanel, BorderLayout.CENTER);
+        PaintPanel paintPanel = new PaintPanel();
 
-        application.add(new JLabel("Drag the moust to draw"), BorderLayout.SOUTH);
+        paintPanel.setBackground(Color.WHITE);
+
+        application.add(radioBtnPanel, BorderLayout.NORTH);
+        application.add(listPanel,BorderLayout.WEST);
+        application.add(paintPanel, BorderLayout.CENTER);
+        application.add(new JLabel("Drag mouse to draw"), BorderLayout.SOUTH);
 
         application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         listFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -21,9 +29,9 @@ public class Paint {
         listFrame.setSize(350, 150);
         radioButtonFrame.setSize(400,100);
 
-        listFrame.setVisible(true);
+        listFrame.setVisible(false);
         application.setVisible(true);
-        radioButtonFrame.setVisible(true);
+        radioButtonFrame.setVisible(false);
     }
 }
 

@@ -7,17 +7,14 @@ import javax.swing.event.ListSelectionListener;
 
 public class PaintPanel extends JPanel {
     private int pointCount = 0;
-    private int touch=0;
-    private Point[] points = new Point[100000];
+    private Point[] points = new Point[1000000];
     private Color[] colorList = new Color[1000000];
-    private int[] sizeList = new int[100000];
+    private int[] sizeList = new int[1000000];
     static Color Color;
     static int size;
 
     public PaintPanel()
     {
-        //this.Color = UsrColor;
-        //this.size = Usrsize;
         addMouseMotionListener(
                 new MouseMotionAdapter()
                 {
