@@ -57,7 +57,7 @@ public class PaintPanel extends JPanel
                 points[pointCount] = event.getPoint();
                 colorList[pointCount] = Color;
                 sizeList[pointCount] = size;
-                shapeList[pointCount] = selectedTool;
+                //shapeList[pointCount] = selectedTool;
                 pointCount++;
                 repaint();
             }
@@ -69,14 +69,14 @@ public class PaintPanel extends JPanel
         }
         @Override
         public void mouseClicked(MouseEvent event) {
-            if (pointCount < points.length) {
-                points[pointCount] = event.getPoint();
-                colorList[pointCount] = Color;
-                shapeList[pointCount] = selectedTool;
-                sizeList[pointCount] = size;
-                pointCount++;
-                repaint();
-            }
+//            if (pointCount < points.length) {
+//                points[pointCount] = event.getPoint();
+//                colorList[pointCount] = Color;
+//                shapeList[pointCount] = selectedTool;
+//                sizeList[pointCount] = size;
+//                pointCount++;
+//                repaint();
+//            }
         }
 
         @Override
@@ -88,9 +88,10 @@ public class PaintPanel extends JPanel
             if(selectedTool=="Rect" || selectedTool=="Oval" || selectedTool=="Line")
             {
                 newShapeLocation.setStartLocation(x, y);
+                shapeList[shapeCount]=selectedTool;
                 shapeLocationList[shapeCount++]=newShapeLocation;
             }
-            System.out.printf("%d    %d    %d\n",shapeCount, x, y);
+            //System.out.printf("%d    %d    %d\n",shapeCount, x, y);
         }
 
         @Override
@@ -104,7 +105,7 @@ public class PaintPanel extends JPanel
                 newShapeLocation.setEndLocation(x, y);
                 shapeLocationList[shapeCount++]=newShapeLocation;
             }
-            System.out.printf("%d    %d    %d\n\n",shapeCount, x, y);
+            //System.out.printf("%d    %d    %d\n\n",shapeCount, x, y);
             repaint();
         }
 
@@ -128,16 +129,19 @@ public class PaintPanel extends JPanel
             temp = sizeList[i];
 
             if(temp==0) temp=3;
-            if(shapeList[i]=="Draw") g.fillOval(points[i].x, points[i].y, temp, temp);
+            g.fillOval(points[i].x, points[i].y, temp, temp);
         }
         for (int i=0; i<shapeCount; i+=2)
         {
             g.setColor(java.awt.Color.BLACK);
             int shapeStartLocaInfo[] = new int[4];
             int shapeEndLocaInfo[] = new int[4];
+            String nowShape = shapeList[i];
             shapeStartLocaInfo = shapeLocationList[i].getShapeLocation();
             shapeEndLocaInfo = shapeLocationList[i+1].getShapeLocation();
-            g.drawRect(shapeStartLocaInfo[0], shapeStartLocaInfo[1], shapeEndLocaInfo[2]-shapeStartLocaInfo[0], shapeEndLocaInfo[3]-shapeStartLocaInfo[1]);
+            if(nowShape=="Rect") g.drawRect(shapeStartLocaInfo[0], shapeStartLocaInfo[1], shapeEndLocaInfo[2]-shapeStartLocaInfo[0], shapeEndLocaInfo[3]-shapeStartLocaInfo[1]);
+            else if(nowShape=="Oval") g.drawOval(shapeStartLocaInfo[0], shapeStartLocaInfo[1], shapeEndLocaInfo[2]-shapeStartLocaInfo[0], shapeEndLocaInfo[3]-shapeStartLocaInfo[1]);
+            else if(nowShape=="Line") g.drawLine(shapeStartLocaInfo[0], shapeStartLocaInfo[1], shapeEndLocaInfo[2], shapeEndLocaInfo[3]);
         }
     }
 }
