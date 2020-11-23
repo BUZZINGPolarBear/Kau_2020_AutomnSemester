@@ -84,12 +84,7 @@ public class RadioButtonFrame extends JFrame{
         }
         public void itemStateChanged(ItemEvent event) {
             paint.selectedTool = this.selectedTool;
-            if(selectedTool.equals(Rect)||selectedTool.equals(Oval)||selectedTool.equals(Line))
-            {
-                String str = JOptionPane.showInputDialog("Input size of selected shape size");
-                size = Integer.parseInt(str);
-                paint.size = this.size;
-            }
+
         }
 
     }

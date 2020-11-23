@@ -24,7 +24,7 @@ class ListFrame extends JFrame{
         MenuFrame main = new MenuFrame();
 
         textArea = new JTextArea();
-        textField = new JTextField("Size:",10);
+        textField = new JTextField("Set your size here",10);
         colorJList = new JList(colorNames);
         colorJList.setVisibleRowCount(6);
 
