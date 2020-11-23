@@ -2,8 +2,33 @@ import java.awt.*;
 import javax.swing.*;
 
 public class MenuFrame extends JFrame{
+    static JPanel radioBtnPanel = new JPanel();
+    static JPanel listPanel = new JPanel();
 
-    void MenuFrame(){
+    void MenuFrame() {
+        this.setTitle("Graphic Editor - 2017125064");
+        this.setSize(600,600);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        ListFrame listFrame = new ListFrame();
+        RadioButtonFrame radioButtonFrame = new RadioButtonFrame();
+        PaintPanel paintPanel = new PaintPanel();
+        MenuFrame menuFrame = new MenuFrame();
+
+        paintPanel.setBackground(Color.WHITE);
+
+        this.add(radioBtnPanel, BorderLayout.NORTH);
+        this.add(listPanel,BorderLayout.WEST);
+        this.add(paintPanel, BorderLayout.CENTER);
+        this.add(new JLabel("Drag mouse to draw"), BorderLayout.SOUTH);
+
+        CreateMenu();
+
+        this.setVisible(true);
+    }
+
+    public void CreateMenu()
+    {
         JMenuBar menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
         JMenu SourceMenu = new JMenu("Source");
@@ -16,6 +41,8 @@ public class MenuFrame extends JFrame{
 
         menuBar.add(fileMenu);
         menuBar.add(SourceMenu);
+
+        this.setJMenuBar(menuBar);
     }
 
 }

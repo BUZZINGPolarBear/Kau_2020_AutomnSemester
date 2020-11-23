@@ -21,7 +21,7 @@ class ListFrame extends JFrame{
     {
         super ("Choose Color");
         setLayout(new FlowLayout());
-        GraphicEditor main = new GraphicEditor();
+        MenuFrame main = new MenuFrame();
 
         textArea = new JTextArea();
         textField = new JTextField("Size:",10);
@@ -51,12 +51,12 @@ class ListFrame extends JFrame{
 
         textField.addActionListener(
                 new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    paintPanel.size = Integer.parseInt(textField.getText());
-                    textArea.setText("Thickness: "+Integer.parseInt(textField.getText())+"px");
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        paintPanel.size = Integer.parseInt(textField.getText());
+                        textArea.setText("Thickness: "+Integer.parseInt(textField.getText())+"px");
+                    }
                 }
-            }
         );
     }
 }
