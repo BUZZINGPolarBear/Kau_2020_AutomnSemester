@@ -91,8 +91,8 @@ public class PaintPanel extends JPanel
                             int selected = Integer.parseInt(str);
                             if(selected==2)
                             {
-                                //String str = JOptionPane.showInputDialog("Chang color to...\n");
-                               // shapeColorList[i] = color;
+                                shapeColorList[i] = Color;
+                                repaint();
                             }
                             flagForNewShapeLocation=1;
                         }
