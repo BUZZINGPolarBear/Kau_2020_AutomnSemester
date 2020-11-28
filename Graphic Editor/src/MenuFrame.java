@@ -7,7 +7,7 @@ public class MenuFrame extends JFrame{
 
     void MenuFrame() {
         this.setTitle("Graphic Editor - 2017125064");
-        this.setSize(600,600);
+        this.setSize(1000,1000);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         ListFrame listFrame = new ListFrame();

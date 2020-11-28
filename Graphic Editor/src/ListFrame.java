@@ -15,8 +15,7 @@ class ListFrame extends JFrame{
     private JTextField textField;
     private JTextArea textArea;
     public static  PaintPanel paintPanel = new PaintPanel();
-    private static final String[] colorNames = {"Black", "Red", "Green", "Blue", "Yellow", "White"};
-    private static final Color[] colors = {Color.BLACK, Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.WHITE};
+    public Button colorBTN = new Button("Set Color");
     public ListFrame()
     {
         super ("Choose Color");
@@ -25,29 +24,16 @@ class ListFrame extends JFrame{
 
         textArea = new JTextArea();
         textField = new JTextField("Set your size here",10);
-        colorJList = new JList(colorNames);
-        colorJList.setVisibleRowCount(6);
-
-        colorJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        colorBTN.setSize(10,5);
 
         paintPanel.setLayout(new BorderLayout());
         paintPanel.add(textArea,"North");
         paintPanel.add(textField,"Center");
-        paintPanel.add(new JScrollPane(colorJList),"South");
+        paintPanel.add(colorBTN,"South");
         main.listPanel.add(paintPanel);
 
         textArea.setText("Thickness: 3px");
 
-        colorJList.addListSelectionListener(
-                new ListSelectionListener() {
-                    @Override
-                    public void valueChanged(ListSelectionEvent e) {
-                        Color color;
-                        color = colors[colorJList.getSelectedIndex()];
-                        paintPanel.Color = color;
-                    }
-                }
-        );
 
         textField.addActionListener(
                 new ActionListener() {
@@ -55,6 +41,16 @@ class ListFrame extends JFrame{
                     public void actionPerformed(ActionEvent e) {
                         paintPanel.size = Integer.parseInt(textField.getText());
                         textArea.setText("Thickness: "+Integer.parseInt(textField.getText())+"px");
+                    }
+                }
+        );
+
+        colorBTN.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        RGBPicker rgbPicker = new RGBPicker();
+                        rgbPicker.run();
                     }
                 }
         );

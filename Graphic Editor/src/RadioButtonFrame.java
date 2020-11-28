@@ -9,10 +9,10 @@ import javax.swing.JTextField;
 
 //public class CheckBoxFrame extends JFrame {
 public class RadioButtonFrame extends JFrame{
-    private String Draw="Draw", Select="Select", Move="Move", Rect="Rect", Oval="Oval", Line="Line", Paint="Paint", Txt="Txt";
+    private String Draw="Draw", Select="Select", Delete="Delete", Rect="Rect", Oval="Oval", Line="Line", Paint="Paint", Txt="Txt";
     private JRadioButton DrawBTN;
     private JRadioButton SelectBTN;
-    private JRadioButton MoveBTN;
+    private JRadioButton DeleteBTN;
     private JRadioButton RectBTN;
     private JRadioButton OvalBTN;
     private JRadioButton LineBTN;
@@ -29,7 +29,7 @@ public class RadioButtonFrame extends JFrame{
 
         DrawBTN = new JRadioButton("Draw", true);
         SelectBTN = new JRadioButton("Select", false);
-        MoveBTN = new JRadioButton("Move", false);
+        DeleteBTN = new JRadioButton("Delete", false);
         RectBTN = new JRadioButton("Rect", false);
         OvalBTN = new JRadioButton("Oval", false);
         LineBTN = new JRadioButton("Line", false);
@@ -38,7 +38,7 @@ public class RadioButtonFrame extends JFrame{
 
         mainPaint.radioBtnPanel.add(DrawBTN);
         mainPaint.radioBtnPanel.add(SelectBTN);
-        mainPaint.radioBtnPanel.add(MoveBTN);
+        mainPaint.radioBtnPanel.add(DeleteBTN);
         mainPaint.radioBtnPanel.add(RectBTN);
         mainPaint.radioBtnPanel.add(OvalBTN);
         mainPaint.radioBtnPanel.add(LineBTN);
@@ -49,7 +49,7 @@ public class RadioButtonFrame extends JFrame{
         radioGroup = new ButtonGroup();
         radioGroup.add(DrawBTN);
         radioGroup.add(SelectBTN);
-        radioGroup.add(MoveBTN);
+        radioGroup.add(DeleteBTN);
         radioGroup.add(RectBTN);
         radioGroup.add(OvalBTN);
         radioGroup.add(LineBTN);
@@ -60,8 +60,8 @@ public class RadioButtonFrame extends JFrame{
                 new RadioButtonHandler(Draw) );
         SelectBTN.addItemListener(
                 new RadioButtonHandler(Select) );
-        MoveBTN.addItemListener(
-                new RadioButtonHandler(Move) );
+        DeleteBTN.addItemListener(
+                new RadioButtonHandler(Delete) );
         RectBTN.addItemListener(
                 new RadioButtonHandler(Rect) );
         OvalBTN.addItemListener(
