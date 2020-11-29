@@ -3,6 +3,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.awt.image.BufferedImage;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -15,6 +16,8 @@ public class PaintPanel extends JPanel
     private int[] sizeList = new int[1000000];
     private String[] shapeList = new String[1000000];
     private ShapeLocation[] shapeLocationList = new ShapeLocation[1000000];
+    public static BufferedImage bi, objectImage;
+    public static Graphics2D g2d;
     static Color Color, newColor;
     static String selectedTool="Draw";//Initial value
     static RGBPicker rgbPicker = new RGBPicker();
@@ -27,6 +30,7 @@ public class PaintPanel extends JPanel
         MouseHandler handler = new MouseHandler();
         super.addMouseListener(handler);
         super.addMouseMotionListener(handler);
+        bi = new BufferedImage(800, 800, BufferedImage.TYPE_INT_RGB);
     }
 
     public class ShapeLocation
@@ -62,6 +66,7 @@ public class PaintPanel extends JPanel
                 //shapeList[pointCount] = selectedTool;
                 pointCount++;
                 repaint();
+                printAll(bi.getGraphics());
             }
         }
 
@@ -104,6 +109,7 @@ public class PaintPanel extends JPanel
                     {//Change Color
                         shapeColorList[originalShapeIndex] = rgbPicker.getRGB();
                         repaint();
+                        printAll(bi.getGraphics());
                     }
                     else
                     {
@@ -127,6 +133,7 @@ public class PaintPanel extends JPanel
                         shapeLocationList[originalShapeIndex] = newShapeLocation;
 
                         repaint();
+                        printAll(bi.getGraphics());
                     }
                     else if(selected == 3)
                     {
@@ -138,6 +145,7 @@ public class PaintPanel extends JPanel
                         newShapeLocation.setEndLocation(new_x2, new_y2);
                         shapeLocationList[shapeCount++] = newShapeLocation;
                         repaint();
+                        printAll(bi.getGraphics());
                         return;
                     }
 
@@ -165,6 +173,7 @@ public class PaintPanel extends JPanel
                         shapeLocationList[i] = newShapeLocation;
                         originalShapeIndex = i;
                         repaint();
+                        printAll(bi.getGraphics());
                         return;
                     }
                 }
@@ -218,6 +227,7 @@ public class PaintPanel extends JPanel
             }
             System.out.printf("%d    %d    %d\n\n", shapeCount, x, y);
             repaint();
+            printAll(bi.getGraphics());
         }
 
         @Override
@@ -246,7 +256,7 @@ public class PaintPanel extends JPanel
 
             slider = new JSlider(-100, 100, 0);
             slider.setMajorTickSpacing(50);
-            slider.setMinorTickSpacing(1);
+            slider.setMinorTickSpacing(10);
             slider.setPaintTicks(true);
             slider.setPaintLabels(true);
             slider.addChangeListener(this);
@@ -258,6 +268,7 @@ public class PaintPanel extends JPanel
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     PaintPanel.this.repaint();
+                    printAll(bi.getGraphics());
                 }
             });
             panel.add(applyBTN);
@@ -275,12 +286,12 @@ public class PaintPanel extends JPanel
 
             if(selectedSlide.getValueIsAdjusting()) {
                 resizeShapeCount = (int) slider.getValue();
-                System.out.println(resizeShapeIndex+"         "+resizeShapeCount);
                 newShapeLocation.setStartLocation(savedShapeLocation_x - resizeShapeCount, savedShapeLocation_y - resizeShapeCount);
                 shapeLocationList[resizeShapeIndex] = newShapeLocation;
                 newShapeLocation.setEndLocation(savedShapeLocation_x2 + resizeShapeCount, savedShapeLocation_y2 + resizeShapeCount);
                 shapeLocationList[resizeShapeIndex+1] = newShapeLocation;
                 repaint();
+                printAll(bi.getGraphics());
             }
         }
     }
@@ -288,6 +299,8 @@ public class PaintPanel extends JPanel
     {
         int temp=0;
         super.paintComponent(g);
+        g2d = (Graphics2D) g;
+        g.drawImage(objectImage,0,0,null);
         for (int i = 0; i < pointCount; i++)
         {
             g.setColor(colorList[i]);
