@@ -9,14 +9,14 @@ import javax.swing.JTextField;
 
 //public class CheckBoxFrame extends JFrame {
 public class RadioButtonFrame extends JFrame{
-    private String Draw="Draw", Select="Select", Delete="Delete", Rect="Rect", Oval="Oval", Line="Line", Paint="Paint", Txt="Txt";
+    private String Draw="Draw", Select="Select", Delete="Delete", Rect="Rect", Oval="Oval", Line="Line", Resize="Resize", Txt="Txt";
     private JRadioButton DrawBTN;
     private JRadioButton SelectBTN;
     private JRadioButton DeleteBTN;
     private JRadioButton RectBTN;
     private JRadioButton OvalBTN;
     private JRadioButton LineBTN;
-    private JRadioButton PaintBTN;
+    private JRadioButton ResizeBTN;
     private JRadioButton TxtBTN;
     private ButtonGroup radioGroup;
     static int size;
@@ -29,31 +29,31 @@ public class RadioButtonFrame extends JFrame{
 
         DrawBTN = new JRadioButton("Draw", true);
         SelectBTN = new JRadioButton("Select", false);
-        DeleteBTN = new JRadioButton("Delete", false);
         RectBTN = new JRadioButton("Rect", false);
         OvalBTN = new JRadioButton("Oval", false);
         LineBTN = new JRadioButton("Line", false);
-        PaintBTN = new JRadioButton("Paint", false);
+        ResizeBTN = new JRadioButton("Resize", false);
+        DeleteBTN = new JRadioButton("Delete", false);
         TxtBTN = new JRadioButton("TEXT", false);
 
         mainPaint.radioBtnPanel.add(DrawBTN);
         mainPaint.radioBtnPanel.add(SelectBTN);
-        mainPaint.radioBtnPanel.add(DeleteBTN);
         mainPaint.radioBtnPanel.add(RectBTN);
         mainPaint.radioBtnPanel.add(OvalBTN);
         mainPaint.radioBtnPanel.add(LineBTN);
-        mainPaint.radioBtnPanel.add(PaintBTN);
+        mainPaint.radioBtnPanel.add(ResizeBTN);
+        mainPaint.radioBtnPanel.add(DeleteBTN);
         mainPaint.radioBtnPanel.add(TxtBTN);
 
 
         radioGroup = new ButtonGroup();
         radioGroup.add(DrawBTN);
         radioGroup.add(SelectBTN);
-        radioGroup.add(DeleteBTN);
         radioGroup.add(RectBTN);
         radioGroup.add(OvalBTN);
         radioGroup.add(LineBTN);
-        radioGroup.add(PaintBTN);
+        radioGroup.add(ResizeBTN);
+        radioGroup.add(DeleteBTN);
         radioGroup.add(TxtBTN);
 
         DrawBTN.addItemListener(
@@ -68,8 +68,8 @@ public class RadioButtonFrame extends JFrame{
                 new RadioButtonHandler(Oval) );
         LineBTN.addItemListener(
                 new RadioButtonHandler(Line) );
-        PaintBTN.addItemListener(
-                new RadioButtonHandler(Paint) );
+        ResizeBTN.addItemListener(
+                new RadioButtonHandler(Resize) );
         TxtBTN.addItemListener(
                 new RadioButtonHandler(Txt) );
     }
